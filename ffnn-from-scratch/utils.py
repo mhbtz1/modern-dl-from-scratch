@@ -6,10 +6,20 @@ def sigmoid(x: np.array) -> np.array:
 def relu(x : np.array) -> np.array:
     return np.max(x, 0)
 def softmax(x : np.array) -> np.array:
-    return (np.exp(x)/(np.sum(np.exp(x))))
+    return (np.exp(x)/(np.sum(np.exp(x), axis=0)))
 
-def cross_entropy_loss(target : np.array, actual: np.array) -> np.float64
-    return target.T @ -np.log(actual)
+def cross_entropy_loss(target : np.array, actual: np.array) -> np.float64:
+    return -target.T @ np.log(actual)
+
+class Sigmoid():
+    def __init__(self):
+        pass
+
+    def __call__(self, x):
+        return 1/(1 + np.exp(-x))
+
+    def __grad__(self, x):
+        return self.__call__(x) * (1 - self.__call__(x))
 
 '''
 def sigmoid(x : np.array) -> Tuple[np.array, Callable[ [np.ndarray], np.ndarray ]]:
